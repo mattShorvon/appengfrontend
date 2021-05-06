@@ -110,7 +110,7 @@ function Step5_1(props) {
     data.append("file", event.target.files[0]);
 
     axios
-      .post("http://comp0067.herokuapp.com/api/users/upload", data)
+      .post("https://comp0067.herokuapp.com/api/users/upload", data)
       .then((res) => {
         console.log(res.data);
         setItemPicture(res.data.filename);
@@ -273,7 +273,7 @@ function Step5_1(props) {
             />
             <div>
               {itemPicture !== "" ? (
-                <img src={`http://comp0067.herokuapp.com/${itemPicture}`} />
+                <img src={`https://comp0067.herokuapp.com/${itemPicture}`} />
               ) : (
                 ""
               )}

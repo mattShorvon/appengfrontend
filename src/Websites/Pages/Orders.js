@@ -13,7 +13,7 @@ function Orders() {
   var userId = decoded_token.userId;
 
   useEffect(() => {
-    fetch("http://comp0067.herokuapp.com/unfulfilledorders", {
+    fetch("https://comp0067.herokuapp.com/unfulfilledorders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ function Orders() {
   }, [rerender]);
 
   useEffect(() => {
-    fetch("http://comp0067.herokuapp.com/fulfilledorders", {
+    fetch("https://comp0067.herokuapp.com/fulfilledorders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ function Orders() {
                     onClick={() =>
                       axios
                         .post(
-                          `http://comp0067.herokuapp.com/orderchangefulfilledY2N`,
+                          `https://comp0067.herokuapp.com/orderchangefulfilledY2N`,
                           {
                             item,
                           }
@@ -129,7 +129,7 @@ function Orders() {
                     onClick={() =>
                       axios
                         .post(
-                          `http://comp0067.herokuapp.com/orderchangefulfilledN2Y`,
+                          `https://comp0067.herokuapp.com/orderchangefulfilledN2Y`,
                           {
                             item,
                           }

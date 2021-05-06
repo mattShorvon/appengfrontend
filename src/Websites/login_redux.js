@@ -30,7 +30,7 @@ class LoginRedux extends Component {
     };
 
     axios
-      .post(`http://comp0067.herokuapp.com/login`, { Data })
+      .post(`https://comp0067.herokuapp.com/login`, { Data })
       .then((res) => {
         console.log(res);
         if (res["data"].token) {
@@ -45,7 +45,7 @@ class LoginRedux extends Component {
           var userId = decoded_token.userId;
 
           axios
-            .post("http://comp0067.herokuapp.com/whichbusiness", { userId })
+            .post("https://comp0067.herokuapp.com/whichbusiness", { userId })
             .then((res) => {
               console.log(res);
               var business_name = res.data.businessName;

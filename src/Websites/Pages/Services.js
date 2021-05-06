@@ -66,7 +66,7 @@ const Services = () => {
                 return (
                   <ProductCard key={product.itemId}>
                     <ProductImg
-                      src={`http://comp0067.herokuapp.com/${product.itemPicture}`}
+                      src={`https://comp0067.herokuapp.com/${product.itemPicture}`}
                     />
                     <ProductInfo>
                       <ProductTitle>{product.name}</ProductTitle>

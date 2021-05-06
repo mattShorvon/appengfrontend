@@ -43,13 +43,13 @@ function AboutMe({ websitename }) {
   useEffect(() => {
     if (userId === "customer") {
       axios
-        .post("http://comp0067.herokuapp.com/aboutmedatacustomer", {
+        .post("https://comp0067.herokuapp.com/aboutmedatacustomer", {
           businessName,
         })
         .then((response) => setAboutMe(response.data[0]));
     } else {
       axios
-        .post("http://comp0067.herokuapp.com/aboutmedata", { userId })
+        .post("https://comp0067.herokuapp.com/aboutmedata", { userId })
         .then((response) => setAboutMe(response.data[0]));
     }
   }, []);
@@ -64,7 +64,7 @@ function AboutMe({ websitename }) {
       email: email.value,
       message: message.value,
     };
-    let response = await fetch("http://comp0067.herokuapp.com/contact", {
+    let response = await fetch("https://comp0067.herokuapp.com/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
