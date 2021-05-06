@@ -20,7 +20,7 @@ export default function OrderNotice({ websitename, showWebsiteList }) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/getpaypal", { websitename })
+      .post("http://comp0067.herokuapp.com/getpaypal", { websitename })
       .then((response) => {
         setPaypal(response.data[0].paypal);
         console.log(response.data[0].paypal);

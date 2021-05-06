@@ -7,7 +7,7 @@ import Man from "./Photos/man.png";
 
 // updated to receive data from backend query
 const Websitelist = () => {
-  return axios.post("http://localhost:5000/websitelist");
+  return axios.post("http://comp0067.herokuapp.com/websitelist");
 };
 //   const websitelist = await axios.post("http://localhost:5000/websitelist");
 //   console.log("Websitelist() function called, result:" + websitelist);

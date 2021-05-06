@@ -100,7 +100,7 @@ const WebsiteSelect = ({ match }) => {
   const [websitelist, setWebsiteList] = useState([]);
   useEffect(() => {
     axios
-      .post("http://localhost:5000/websitelist")
+      .post("http://comp0067.herokuapp.com/websitelist")
       .then((response) => setWebsiteList(response.data), setLoading(false));
   }, []);
 
@@ -131,13 +131,15 @@ const WebsiteSelect = ({ match }) => {
                   // to={`${location.pathname}/${website.businessName}/${showWebsiteList}`}
                   to={`${match.url}/${businessName}/${showWebsiteList}`}
                   onClick={() => {
-                    axios.post("/logincustomer").then((result) => {
-                      console.log(result.data.token);
-                      localStorage.setItem("token", result.data.token);
-                      var decoded_token = jwt_decode(result.data.token);
-                      console.log(decoded_token);
-                      window.location.reload();
-                    });
+                    axios
+                      .post("http://comp0067.herokuapp.com/logincustomer")
+                      .then((result) => {
+                        console.log(result.data.token);
+                        localStorage.setItem("token", result.data.token);
+                        var decoded_token = jwt_decode(result.data.token);
+                        console.log(decoded_token);
+                        window.location.reload();
+                      });
                   }}
                 >
                   {businessName}

@@ -24,16 +24,17 @@ function ChangeProducts() {
     const data = new FormData();
     data.append("file", event.target.files[0]);
 
-    axios.post("http://localhost:5000/api/users/upload", data).then((res) => {
-      console.log(res.data);
-      setPhoto(res.data.filename);
-    });
+    axios
+      .post("http://comp0067.herokuapp.com/api/users/upload", data)
+      .then((res) => {
+        console.log(res.data);
+        setPhoto(res.data.filename);
+      });
   };
   const onDescChange = (e) => setDesc(e.target.value);
   const onPriceChange = (e) => setPrice(e.target.value);
   const onQuantityChange = (e) => setQuantity(e.target.value);
   const onItemCategoryChange = (e) => setItemCategory(e.target.value);
-
 
   const CommitPost = () => {
     if (name && itemPicture && description && price && quantity) {
@@ -131,16 +132,16 @@ function ChangeProducts() {
             onChange={onQuantityChange}
           />
           <label htmlFor="password">Picture: </label>
-          <input 
-            type="file"  
+          <input
+            type="file"
             name="file"
             data-testid="goodImage"
-            style = {{ 'color' : 'rgba(0, 0, 0, 0)'}}
+            style={{ color: "rgba(0, 0, 0, 0)" }}
             onChange={onPhotoChange}
           />
           {/* <div>
               {photo !== '' ?
-                  <img src={`http://localhost:5000/${photo}`}/>  : ''}
+                  <img src={`http://comp0067.herokuapp.com/${photo}`}/>  : ''}
           </div> */}
           <br />
           <input
@@ -152,7 +153,7 @@ function ChangeProducts() {
             style={{ color: "rgba(0, 0, 0, 0)" }}
           />
           {/* <div>
-            {itemPicture !== "" ? <img src={`http://localhost:5000/${itemPicture}`} /> : ""}
+            {itemPicture !== "" ? <img src={`http://comp0067.herokuapp.com/${itemPicture}`} /> : ""}
           </div> */}
           <br />
           <button className="formbutton" type="button" onClick={CommitPost}>

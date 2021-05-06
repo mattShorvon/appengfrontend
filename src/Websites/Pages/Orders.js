@@ -13,7 +13,7 @@ function Orders() {
   var userId = decoded_token.userId;
 
   useEffect(() => {
-    fetch("http://localhost:5000/unfulfilledorders", {
+    fetch("http://comp0067.herokuapp.com/unfulfilledorders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ function Orders() {
   }, [rerender]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/fulfilledorders", {
+    fetch("http://comp0067.herokuapp.com/fulfilledorders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,9 +76,12 @@ function Orders() {
                   <button
                     onClick={() =>
                       axios
-                        .post(`http://localhost:5000/orderchangefulfilledY2N`, {
-                          item,
-                        })
+                        .post(
+                          `http://comp0067.herokuapp.com/orderchangefulfilledY2N`,
+                          {
+                            item,
+                          }
+                        )
                         .then(setReRender(rerender + 1))
                     }
                   >
@@ -125,9 +128,12 @@ function Orders() {
                   <button
                     onClick={() =>
                       axios
-                        .post(`http://localhost:5000/orderchangefulfilledN2Y`, {
-                          item,
-                        })
+                        .post(
+                          `http://comp0067.herokuapp.com/orderchangefulfilledN2Y`,
+                          {
+                            item,
+                          }
+                        )
                         .then(setReRender(rerender + 1))
                     }
                   >

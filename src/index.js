@@ -15,14 +15,12 @@ import Homepage from "./components/homepage";
 import "./css/Test.styles.css";
 import { Button } from "reactstrap";
 import RouterNavigation from "./Websites/Objects.js";
-import { store, persistor } from './Websites/store';
-import { Provider } from 'react-redux';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
+import { store, persistor } from "./Websites/store";
+import { Provider } from "react-redux";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
 import axios from "axios";
-import { PersistGate } from 'redux-persist/integration/react';
-
-
+import { PersistGate } from "redux-persist/integration/react";
 
 class MasterForm extends React.Component {
   constructor(props) {
@@ -44,7 +42,7 @@ class MasterForm extends React.Component {
       goods: [],
       services: [],
       emailValid: true,
-      businessValid: true
+      businessValid: true,
     };
   }
 
@@ -93,25 +91,31 @@ class MasterForm extends React.Component {
   // this function checks if the email is valid:
   async checkEmailAvailability() {
     const datapoint = {
-      email: this.state.email
-    }
-    const data = await axios.get("http://localhost:5000/api/users/checkmail", { params: datapoint });
-    let emailValid = data.data.emailValid
+      email: this.state.email,
+    };
+    const data = await axios.get(
+      "http://comp0067.herokuapp.com/api/users/checkmail",
+      { params: datapoint }
+    );
+    let emailValid = data.data.emailValid;
     this.setState({
-      emailValid: emailValid
-    })
+      emailValid: emailValid,
+    });
   }
 
   async checkBusinessNameAvailability() {
     const datapoint = {
-      businessName: this.state.businessName
-    }
-    const data = await axios.get("http://localhost:5000/api/users/checkbusiness", { params: datapoint });
-    console.log(data)
-    let businessValid = data.data.businessValid
+      businessName: this.state.businessName,
+    };
+    const data = await axios.get(
+      "http://comp0067.herokuapp.com/api/users/checkbusiness",
+      { params: datapoint }
+    );
+    console.log(data);
+    let businessValid = data.data.businessValid;
     this.setState({
-      businessValid: businessValid
-    })
+      businessValid: businessValid,
+    });
   }
 
   //The next function takes the form to the next step, but also performs validation on the current step
@@ -122,119 +126,123 @@ class MasterForm extends React.Component {
 
     //validating first step values:
     if (this.state.currentStep === 1) {
-      let step1_values = ["firstName", "lastName", "email", "postcode"]
+      let step1_values = ["firstName", "lastName", "email", "postcode"];
       for (let i = 0; i < step1_values.length; i++) {
         if (!this.state[step1_values[i]]) {
-          alert("Please fill in the " + step1_values[i])
+          alert("Please fill in the " + step1_values[i]);
           return;
         }
         // checks if the email is taken or not:
-        else if (step1_values[i] === 'email') {
-          this.checkEmailAvailability()
+        else if (step1_values[i] === "email") {
+          this.checkEmailAvailability();
           // wait for the checkEmailAvailability to finish
-          setTimeout ( () => {if (this.state.emailValid === false) {
-            alert("This email is already taken. Please use another one.")
-          }
-        }, 100)}
-        setTimeout(() => {if (step1_values[i] === 'postcode' && this.state.emailValid === true) {
+          setTimeout(() => {
+            if (this.state.emailValid === false) {
+              alert("This email is already taken. Please use another one.");
+            }
+          }, 100);
+        }
+        setTimeout(() => {
+          if (
+            step1_values[i] === "postcode" &&
+            this.state.emailValid === true
+          ) {
             currentStep = Math.trunc(currentStep) + 1;
-            console.log({currentStep})
+            console.log({ currentStep });
             this.setState({
               currentStep: currentStep,
-            })
+            });
           }
-    }, 150)
-  }}
+        }, 150);
+      }
+    }
     //validating the second step values:
     if (this.state.currentStep === 2) {
-      let password = this.state.password
-      let passwordVerify = this.state.passwordVerify
-      if (password === '' || passwordVerify === '' ){
-        alert("Please fill in both fields")
-      }
-      else if (password.length < 5) {
-        alert("The password needs to have at least 5 characters in length")
-      }
-      else if (password !== passwordVerify) {
-        alert("The password and password verification must match!")
-      }
-      else {
+      let password = this.state.password;
+      let passwordVerify = this.state.passwordVerify;
+      if (password === "" || passwordVerify === "") {
+        alert("Please fill in both fields");
+      } else if (password.length < 5) {
+        alert("The password needs to have at least 5 characters in length");
+      } else if (password !== passwordVerify) {
+        alert("The password and password verification must match!");
+      } else {
         currentStep = Math.trunc(currentStep) + 1;
-        console.log({currentStep})
+        console.log({ currentStep });
         this.setState({
           currentStep: currentStep,
-        })
+        });
       }
     }
 
     //validating the third step values:
     if (this.state.currentStep === 3) {
-      let businessName = this.state.businessName
-      if (businessName === '') {
-        alert("You need to add a business name. Make it something cool!")
-      }
-      else if (businessName.length < 3) {
-        alert("Your business needs to have at least three letters in it")
-      }
-      else if (!businessName.match(/^[A-Za-z0-9_ -']+$/)) {
-        alert(`Your business name sucks...or at least it doesn't have valid characters. Use letters, numbers spaces or underscores`)
-      }
-      else {
+      let businessName = this.state.businessName;
+      if (businessName === "") {
+        alert("You need to add a business name. Make it something cool!");
+      } else if (businessName.length < 3) {
+        alert("Your business needs to have at least three letters in it");
+      } else if (!businessName.match(/^[A-Za-z0-9_ -']+$/)) {
+        alert(
+          `Your business name sucks...or at least it doesn't have valid characters. Use letters, numbers spaces or underscores`
+        );
+      } else {
         //validating the business name
-        this.checkBusinessNameAvailability()
+        this.checkBusinessNameAvailability();
         setTimeout(() => {
           if (this.state.businessValid === false) {
-            alert("This business name is already taken. Find a different, even cooler one!")
+            alert(
+              "This business name is already taken. Find a different, even cooler one!"
+            );
           }
-        }, 100)
+        }, 100);
 
         setTimeout(() => {
           if (this.state.businessValid === true) {
-
             currentStep = Math.trunc(currentStep) + 1;
-            console.log({currentStep})
+            console.log({ currentStep });
             this.setState({
               currentStep: currentStep,
-            })
+            });
           }
-        }, 150)
-        }
+        }, 150);
       }
+    }
 
     //validating fourth step values:
     if (this.state.currentStep === 4) {
-      let description = this.state.aboutMeText
-      if (description === '') {
-        alert("Add a short description, even if it's a few words. You can change it later")
-      }
-      else {
+      let description = this.state.aboutMeText;
+      if (description === "") {
+        alert(
+          "Add a short description, even if it's a few words. You can change it later"
+        );
+      } else {
         currentStep = Math.trunc(currentStep) + 1;
-        console.log({currentStep})
+        console.log({ currentStep });
         this.setState({
           currentStep: currentStep,
-        })
+        });
       }
     }
 
     //validating fifth step values:
     if (Math.trunc(this.state.currentStep) === 5) {
       currentStep = Math.trunc(currentStep) + 1;
-      console.log({currentStep})
+      console.log({ currentStep });
       this.setState({
         currentStep: currentStep,
-      })
+      });
     }
 
     //validating sixth step values:
     if (Math.trunc(this.state.currentStep) === 6) {
       currentStep = Math.trunc(currentStep) + 1;
-      console.log({currentStep})
+      console.log({ currentStep });
       this.setState({
         currentStep: currentStep,
-      })
+      });
     }
-
-        }
+  };
 
   _next_0_1 = () => {
     let currentStep = this.state.currentStep;
@@ -243,7 +251,6 @@ class MasterForm extends React.Component {
       currentStep: currentStep,
     });
   };
-
 
   _prev = () => {
     let currentStep = this.state.currentStep;
@@ -263,11 +270,17 @@ class MasterForm extends React.Component {
 
   previousButton() {
     let currentStep = this.state.currentStep;
-    if (currentStep !== 1 && currentStep !== 0 && currentStep < 9 && currentStep && Number.isInteger(currentStep)) {
+    if (
+      currentStep !== 1 &&
+      currentStep !== 0 &&
+      currentStep < 9 &&
+      currentStep &&
+      Number.isInteger(currentStep)
+    ) {
       return (
-          <Button className="Button-sizing" type="button" onClick={this._prev}>
-            Click to go back
-          </Button>
+        <Button className="Button-sizing" type="button" onClick={this._prev}>
+          Click to go back
+        </Button>
       );
     }
     return null;
@@ -275,18 +288,23 @@ class MasterForm extends React.Component {
 
   nextButton() {
     let currentStep = this.state.currentStep;
-    if (currentStep < 6 && currentStep !== 0 && currentStep !== 5 && currentStep !== 6
-        && Number.isInteger(currentStep)) {
+    if (
+      currentStep < 6 &&
+      currentStep !== 0 &&
+      currentStep !== 5 &&
+      currentStep !== 6 &&
+      Number.isInteger(currentStep)
+    ) {
       return (
-          <Button
-              className="Button-sizing"
-              type="button"
-              color="primary"
-              data-testid="mainNextBtn"
-              onClick={this._next}
-          >
-            Click to keep going
-          </Button>
+        <Button
+          className="Button-sizing"
+          type="button"
+          color="primary"
+          data-testid="mainNextBtn"
+          onClick={this._next}
+        >
+          Click to keep going
+        </Button>
       );
     }
     return null;
@@ -302,9 +320,9 @@ class MasterForm extends React.Component {
     const aboutMe = this.state.aboutMeText;
     const password = this.state.password;
     const businessName = this.state.businessName;
-    const goods= this.state.goods;
+    const goods = this.state.goods;
     const services = this.state.services;
-    console.log(this.state.goods)
+    console.log(this.state.goods);
 
     //pushing the data into the backend:
     const userData = {
@@ -319,105 +337,112 @@ class MasterForm extends React.Component {
       businessName: businessName,
       userGoods: goods,
       userServices: services,
-    }
+    };
 
-    axios.post('http://localhost:5000/api/users/Register', userData)
-        .then((response) => {
+    axios
+      .post("http://comp0067.herokuapp.com/api/users/Register", userData)
+      .then(
+        (response) => {
           console.log(response);
-        }, (error) => {
+        },
+        (error) => {
           console.log(error);
-        });
-  }
+        }
+      );
+  };
 
   render() {
     return (
-        <React.Fragment>
-          <Homepage
-              handleCreateNewWebsite={this.handleCreateNewWebsite}
-              currentStep={this.state.currentStep}
-          />
+      <React.Fragment>
+        <Homepage
+          handleCreateNewWebsite={this.handleCreateNewWebsite}
+          currentStep={this.state.currentStep}
+        />
 
-          <Step1
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange}
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              email={this.state.email}
-              address={this.state.address}
-              postcode={this.state.postcode}
-              phoneNumber={this.state.phoneNumber}
-          />
-          <Step2
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange}
-              password={this.state.password}
-              passwordVerify={this.state.passwordVerify}
-          />
-          <Step3
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange}
-              password={this.state.businessName}
-          />
-          <Step4
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange}
-              aboutMeText={this.state.aboutMeText}
-          />
+        <Step1
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange}
+          firstName={this.state.firstName}
+          lastName={this.state.lastName}
+          email={this.state.email}
+          address={this.state.address}
+          postcode={this.state.postcode}
+          phoneNumber={this.state.phoneNumber}
+        />
+        <Step2
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange}
+          password={this.state.password}
+          passwordVerify={this.state.passwordVerify}
+        />
+        <Step3
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange}
+          password={this.state.businessName}
+        />
+        <Step4
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange}
+          aboutMeText={this.state.aboutMeText}
+        />
 
-          <Step5
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange}
-              handleSkip={this._next}
-              handleFirstService={this._next_0_1}
-          />
+        <Step5
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange}
+          handleSkip={this._next}
+          handleFirstService={this._next_0_1}
+        />
 
-          <Step5_1
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange2}
-              handleSkipToServices={this._next}
-              handleNextService={this._next_0_1}
-              handleBackToGoods={this._prev_0_1}
-              items={this.state.goods}
-          />
+        <Step5_1
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange2}
+          handleSkipToServices={this._next}
+          handleNextService={this._next_0_1}
+          handleBackToGoods={this._prev_0_1}
+          items={this.state.goods}
+        />
 
-          <Step6
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange2}
-              handleSkip={this._next}
-              handleNextService={this._next_0_1}
-              handleBackToGoods={this._prev_0_1}
-              handleFirstItem={this._next_0_1}
-          />
+        <Step6
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange2}
+          handleSkip={this._next}
+          handleNextService={this._next_0_1}
+          handleBackToGoods={this._prev_0_1}
+          handleFirstItem={this._next_0_1}
+        />
 
-          <Step6_1
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange2}
-              handleSkipToServices={this._next}
-              handleNextService={this._next_0_1}
-              handleBackToGoods={this._prev_0_1}
-              items={this.state.services}
-          />
+        <Step6_1
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange2}
+          handleSkipToServices={this._next}
+          handleNextService={this._next_0_1}
+          handleBackToGoods={this._prev_0_1}
+          items={this.state.services}
+        />
 
-          <Step7
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange}
-              handleSkip={this._next}
-          />
+        <Step7
+          currentStep={this.state.currentStep}
+          handleChange={this.handleChange}
+          handleSkip={this._next}
+        />
 
-          <Step8 currentStep={this.state.currentStep}
-                 register = {this.Register}
+        <Step8 currentStep={this.state.currentStep} register={this.Register} />
 
-          />
-
-          <div style={{ textAlign: "center" }}>
-            {this.previousButton()}
-            {this.nextButton()}
-          </div>
-        </React.Fragment>
+        <div style={{ textAlign: "center" }}>
+          {this.previousButton()}
+          {this.nextButton()}
+        </div>
+      </React.Fragment>
     );
   }
 }
-export default MasterForm
+export default MasterForm;
 
-ReactDOM.render(<Provider store={store}><PersistGate persistor={persistor}><RouterNavigation/></PersistGate></Provider>, document.getElementById('root') || document.createElement('div'));
-
+ReactDOM.render(
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <RouterNavigation />
+    </PersistGate>
+  </Provider>,
+  document.getElementById("root") || document.createElement("div")
+);

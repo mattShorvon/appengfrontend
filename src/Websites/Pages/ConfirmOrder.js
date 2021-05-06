@@ -25,7 +25,10 @@ export default function ConfirmOrder({ websitename, showWebsiteList }) {
     e.preventDefault();
     let path = `/-/${websitename}/${showWebsiteList}/ordernotice`;
     history.push(path);
-    axios.post("http://localhost:5000/submitorder", { cart, websitename });
+    axios.post("http://comp0067.herokuapp.com/submitorder", {
+      cart,
+      websitename,
+    });
     // dispatch(emptyCart(cart));
   };
   return (
