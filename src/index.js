@@ -9,7 +9,7 @@ import Step5 from "./components/step5_sell_goods";
 import Step5_1 from "./components/step5_1_goods_page";
 import Step6 from "./components/step6_sell_services";
 import Step6_1 from "./components/step6_1_services_page";
-import Step7 from "./components/step7_post_social_media";
+import Step7 from "./components/step7_paypal";
 import Step8 from "./components/step_done_website_mockup";
 import Homepage from "./components/homepage";
 import "./css/Test.styles.css";
@@ -21,6 +21,7 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import axios from "axios";
 import { PersistGate } from "redux-persist/integration/react";
+import { withRouter } from "react-router-dom";
 
 class MasterForm extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class MasterForm extends React.Component {
       phoneNumber: "",
       businessName: "",
       aboutMeText: "",
+      paypal: "",
       goods: [],
       services: [],
       emailValid: true,
@@ -93,10 +95,9 @@ class MasterForm extends React.Component {
     const datapoint = {
       email: this.state.email,
     };
-    const data = await axios.get(
-      "https://comp0067.herokuapp.com/api/users/checkmail",
-      { params: datapoint }
-    );
+    const data = await axios.get("http://localhost:5000/api/users/checkmail", {
+      params: datapoint,
+    });
     let emailValid = data.data.emailValid;
     this.setState({
       emailValid: emailValid,
@@ -108,7 +109,7 @@ class MasterForm extends React.Component {
       businessName: this.state.businessName,
     };
     const data = await axios.get(
-      "https://comp0067.herokuapp.com/api/users/checkbusiness",
+      "http://localhost:5000/api/users/checkbusiness",
       { params: datapoint }
     );
     console.log(data);
@@ -116,6 +117,10 @@ class MasterForm extends React.Component {
     this.setState({
       businessValid: businessValid,
     });
+  }
+
+  pushToLogin() {
+    this.props.history.push("/login");
   }
 
   //The next function takes the form to the next step, but also performs validation on the current step
@@ -242,6 +247,19 @@ class MasterForm extends React.Component {
         currentStep: currentStep,
       });
     }
+
+    if (this.state.currentStep === 7) {
+      let paypal = this.state.paypal;
+      if (paypal === "") {
+        alert(`All done! Congratulations on your new wesbite. You will now be redirected to the login page, where you
+        can use your new username and password to access your site.`);
+      } else {
+        currentStep = currentStep + 1;
+        this.setState({
+          currentStep: currentStep,
+        });
+      }
+    }
   };
 
   _next_0_1 = () => {
@@ -320,6 +338,7 @@ class MasterForm extends React.Component {
     const aboutMe = this.state.aboutMeText;
     const password = this.state.password;
     const businessName = this.state.businessName;
+    const paypal = this.state.paypal;
     const goods = this.state.goods;
     const services = this.state.services;
     console.log(this.state.goods);
@@ -335,20 +354,24 @@ class MasterForm extends React.Component {
       aboutMeDescription: aboutMe,
       dataPassword: password,
       businessName: businessName,
+      paypal: paypal,
       userGoods: goods,
       userServices: services,
     };
 
-    axios
-      .post("https://comp0067.herokuapp.com/api/users/Register", userData)
-      .then(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    axios.post("http://localhost:5000/api/users/Register", userData).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    alert(
+      "Congratulations on setting up your new website! You just need to login using your newly created credentials."
+    );
+    // this.props.router.push('/login');
+    this.pushToLogin();
   };
 
   render() {
@@ -424,6 +447,7 @@ class MasterForm extends React.Component {
           currentStep={this.state.currentStep}
           handleChange={this.handleChange}
           handleSkip={this._next}
+          paypal={this.state.paypal}
         />
 
         <Step8 currentStep={this.state.currentStep} register={this.Register} />
@@ -436,7 +460,7 @@ class MasterForm extends React.Component {
     );
   }
 }
-export default MasterForm;
+export default withRouter(MasterForm);
 
 ReactDOM.render(
   <Provider store={store}>
