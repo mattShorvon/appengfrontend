@@ -138,7 +138,7 @@ const WebsiteSelect = ({ match }) => {
                         localStorage.setItem("token", result.data.token);
                         var decoded_token = jwt_decode(result.data.token);
                         console.log(decoded_token);
-                        window.location.reload();
+                        // window.location.reload();
                       });
                   }}
                 >
