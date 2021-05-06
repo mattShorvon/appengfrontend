@@ -1,0 +1,1 @@
+export const FIND_WEBSITE_NAME = "FIND_WEBSITE_NAME";

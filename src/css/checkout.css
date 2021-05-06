@@ -1,0 +1,89 @@
+.checkout-steps > div {
+    border-top: 0.3rem #c0c0c0 solid;
+    color: #c0c0c0;
+    flex: 1;
+    padding: 1rem;
+    font-weight: bold;
+
+  }
+  .checkout-steps > div.active {
+    border-top-color: #f08000;
+    color: #f08000;
+  }
+
+  .form {
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+  .form > div {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+  }
+  .form label {
+    margin: 1rem 0;
+  }
+
+  .col-1-new {
+    flex: 1 1 25rem;
+  }
+  .col-2-new {
+    flex: 2 1 50rem;
+  }
+
+  .card-new {
+    border: 0.1rem #c0c0c0 solid;
+    background-color: #f8f8f8;
+    border-radius: 0.5rem;
+    margin: 1rem;
+  }
+  .card-body {
+    padding: 1rem;
+    width: 90%
+  }
+  .card-body > * {
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-right {
+    margin-top: 0;
+  }
+
+  .row-new {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .row.center-new {
+    justify-content: center;
+  }
+  .row.top-new {
+    align-items: flex-start;
+  }
+  .row.start-new {
+    justify-content: flex-start;
+  }
+
+  img {
+    border-radius: 0.5rem;
+  }
+  img.small {
+    max-width: 5rem;
+    width: 100%;
+  }
+  img.medium {
+    max-width: 29rem;
+    width: 100%;
+  }
+  img.large {
+    width: 100%;
+  }
+
+  .min-30 {
+    min-width: 30rem;
+  }
+
+  .no-bulletpoints {
+    list-style-type: none;
+  }

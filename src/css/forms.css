@@ -1,0 +1,13 @@
+.form_padding {
+    padding-left:  3%;
+    padding-right: 3%;
+}
+
+.enquiriesform {
+    width: 100%;
+    grid-column-start: 2;
+    grid-row-start: 4;
+    grid-column-end: 5;
+    grid-row-end: 5;
+}
+
