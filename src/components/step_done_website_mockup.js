@@ -3,7 +3,7 @@ import {Button} from "reactstrap";
 
 function Step8(props) {
 
-    if (props.currentStep !== 7) {
+    if (props.currentStep !== 8) {
         return null
     }
     return(

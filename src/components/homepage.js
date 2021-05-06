@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
 function Homepage(props) {
   if (props.currentStep !== 0) {
@@ -14,9 +15,9 @@ function Homepage(props) {
         <div
           style={{ width: "auto", height: "50px", display: "inline-block" }}
         />
-        <Button className="Button-sizing" type="button" color="success">
-          CLICK HERE TO LOGIN
-        </Button>
+
+        <Link to="/login" className="btn btn-success">Click here to login</Link>
+
         <Button
           className="Button-sizing"
           type="button"
