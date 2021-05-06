@@ -66,14 +66,14 @@ const Products = ({ websitename, showWebsiteList }) => {
                 }
               })
               .map((product) => {
-              //   var quant = 1;
-              //   const setquant = (value) => {
-              //     quant = value;
-              //   };
+                //   var quant = 1;
+                //   const setquant = (value) => {
+                //     quant = value;
+                //   };
                 return (
                   <ProductCard key={product.itemId}>
                     <ProductImg
-                      src={`http://localhost:5000/${product.itemPicture}`}
+                      src={`http://comp0067.herokuapp.com/${product.itemPicture}`}
                     />
                     <ProductInfo>
                       <ProductTitle>{product.name}</ProductTitle>
